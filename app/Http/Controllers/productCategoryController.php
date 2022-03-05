@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\productCategory;
 
 class productCategoryController extends Controller
 {
@@ -34,7 +36,16 @@ class productCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+
+        productCategory::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+        ]);
+
+        return response()->json('success', 200);
     }
 
     /**

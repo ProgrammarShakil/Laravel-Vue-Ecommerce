@@ -5438,13 +5438,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ProductCreate',
   data: function data() {
-    return {};
+    return {
+      createName: ''
+    };
   },
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    createCategory: function createCategory() {
+      axios.post('/api/categories', {
+        name: this.createName
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -29168,7 +29181,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center mt-3" }, [
-      _c("div", { staticClass: "col-md-8" }, [
+      _c("div", { staticClass: "col-md-6" }, [
         _c("div", { staticClass: "card rounded-1" }, [
           _c(
             "div",
@@ -29188,26 +29201,58 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              {
+                staticClass: "form",
+                on: {
+                  submit: function ($event) {
+                    $event.preventDefault()
+                    return _vm.createCategory()
+                  },
+                },
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.createName,
+                      expression: "createName",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "name" },
+                  domProps: { value: _vm.createName },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.createName = $event.target.value
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "btn btn-primary mt-3",
+                  attrs: {
+                    type: "submit",
+                    name: "name",
+                    value: "Add Category",
+                  },
+                }),
+              ]
+            ),
+          ]),
         ]),
       ]),
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c(
-        "form",
-        { staticClass: "form", attrs: { action: "", method: "post" } },
-        [_c("input", { staticClass: "form-control", attrs: { type: "text" } })]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -1,15 +1,16 @@
 <template>
     <div class="container">
         <div class="row justify-content-center mt-3">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card rounded-1">
                     <div class="card-header d-flex justify-content-between">
                         <h4>Categories</h4>
                         <router-link :to="{name:'product-Category'}" class="btn btn-success">Back</router-link>
                     </div>
                     <div class="card-body">
-                        <form action="" method="post" class="form">
-                            <input type="text" class="form-control">
+                        <form @submit.prevent="createCategory()" class="form">
+                            <input v-model="createName" type="text" name="name" class="form-control">
+                            <input type="submit" name="name" value="Add Category" class="btn btn-primary mt-3">
                         </form>
                     </div>
                 </div>
@@ -24,7 +25,7 @@
 
         data() {
             return {
-
+                createName: '',
             };
         },
 
@@ -33,7 +34,14 @@
         },
 
         methods: {
-
+            createCategory(){
+                axios.post('/api/categories', {name: this.createName}).then((response)=>{
+                    console.log(response);
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })
+            }
         },
     };
 
