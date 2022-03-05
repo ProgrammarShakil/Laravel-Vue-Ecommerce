@@ -40,7 +40,9 @@
         methods: {
             createCategory(){
                 this.categoryForm.post('/api/categories').then((response)=>{
-                    console.log(response);
+                Toastr.success('Category Added Successfully');
+
+				this.categoryForm.name = null;
                 })
                 .catch((error)=>{
                     console.log(error);
