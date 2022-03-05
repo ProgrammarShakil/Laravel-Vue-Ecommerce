@@ -18,10 +18,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>T-Shirt</td>
-                                    <td>T-shirt-1</td>
+                                <tr v-for="(category,id) in categories" :key="id">
+                                    <td>{{ id }}</td>
+                                    <td>{{ category.name }}</td>
+                                    <td>{{ category.slug }}</td>
                                     <td>
                                         <a class="btn btn-info btn-sm" href=""><i class="fa fa-edit text-white"></i></a>
                                         <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -42,16 +42,23 @@
 
         data() {
             return {
-
+                categories: [],
             };
         },
 
         mounted() {
-
+            this.getCategories()
         },
 
         methods: {
+            getCategories(){
+                axios.get('/api/categories').then((response)=>{
+                    this.categories = response.data
+                })
+                .catch((error)=>{
 
+                });
+            }
         },
     };
 

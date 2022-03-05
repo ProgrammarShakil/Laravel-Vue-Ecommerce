@@ -15,7 +15,8 @@ class productCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = productCategory::latest()->get();
+        return response()->json($categories,200);
     }
 
     /**

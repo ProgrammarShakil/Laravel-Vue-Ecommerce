@@ -5519,10 +5519,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ProductIndex',
   data: function data() {
-    return {};
+    return {
+      categories: []
+    };
   },
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {
+    this.getCategories();
+  },
+  methods: {
+    getCategories: function getCategories() {
+      var _this = this;
+
+      axios.get('/api/categories').then(function (response) {
+        _this.categories = response.data;
+      })["catch"](function (error) {});
+    }
+  }
 });
 
 /***/ }),
@@ -41692,7 +41704,31 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "table",
+              { staticClass: "table bg-primary text-white rounded-1 p-3" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.categories, function (category, id) {
+                    return _c("tr", { key: id }, [
+                      _c("td", [_vm._v(_vm._s(id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(category.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(category.slug))]),
+                      _vm._v(" "),
+                      _vm._m(1, true),
+                    ])
+                  }),
+                  0
+                ),
+              ]
+            ),
+          ]),
         ]),
       ]),
     ]),
@@ -41703,53 +41739,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c(
-        "table",
-        { staticClass: "table bg-primary text-white rounded-1 p-3" },
-        [
-          _c("thead", [
-            _c("tr", { staticClass: "py-3" }, [
-              _c("th", [_vm._v("ID")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Name")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Slug")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Action")]),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("T-Shirt")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("T-shirt-1")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  { staticClass: "btn btn-info btn-sm", attrs: { href: "" } },
-                  [_c("i", { staticClass: "fa fa-edit text-white" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-danger btn-sm", attrs: { href: "" } },
-                  [
-                    _c("i", {
-                      staticClass: "fa fa-trash",
-                      attrs: { "aria-hidden": "true" },
-                    }),
-                  ]
-                ),
-              ]),
-            ]),
-          ]),
-        ]
-      ),
+    return _c("thead", [
+      _c("tr", { staticClass: "py-3" }, [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Slug")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-info btn-sm", attrs: { href: "" } }, [
+        _c("i", { staticClass: "fa fa-edit text-white" }),
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-danger btn-sm", attrs: { href: "" } }, [
+        _c("i", {
+          staticClass: "fa fa-trash",
+          attrs: { "aria-hidden": "true" },
+        }),
+      ]),
     ])
   },
 ]
