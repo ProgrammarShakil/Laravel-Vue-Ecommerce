@@ -9,8 +9,10 @@
                     </div>
                     <div class="card-body">
                         <form @submit.prevent="createCategory()" class="form">
-                            <input v-model="createName" type="text" name="name" class="form-control">
-                            <input type="submit" name="name" value="Add Category" class="btn btn-primary mt-3">
+                            <input :class="{'is-invalid' : categoryForm.errors.has('name')}" v-model="categoryForm.name" type="text" name="name" class="form-control" placeholder="Category Name">
+
+                            <has-error :form="categoryForm" field="name"></has-error>
+                            <input :disabled="categoryForm.busy" type="submit" name="name" value="Add Category" class="btn btn-primary mt-3">
                         </form>
                     </div>
                 </div>
@@ -25,7 +27,9 @@
 
         data() {
             return {
-                createName: '',
+                    categoryForm: new Form({
+                    name: ''
+                })
             };
         },
 
@@ -35,7 +39,7 @@
 
         methods: {
             createCategory(){
-                axios.post('/api/categories', {name: this.createName}).then((response)=>{
+                this.categoryForm.post('/api/categories').then((response)=>{
                     console.log(response);
                 })
                 .catch((error)=>{
