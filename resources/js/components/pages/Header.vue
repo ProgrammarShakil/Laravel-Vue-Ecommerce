@@ -15,6 +15,9 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link class="nav-link" :to="{name:'product-Category'}">Category</router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link class="nav-link" :to="{name:'about'}">About</router-link>
                         </li>
                         <!-- <li class="nav-item dropdown">
