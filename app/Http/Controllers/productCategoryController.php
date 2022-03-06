@@ -38,7 +38,7 @@ class productCategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required',
+            'name' => "required | unique:product_categories,name",
         ]);
 
         productCategory::create([
@@ -68,7 +68,9 @@ class productCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = productCategory::where('id', $id)->first();
+
+        return response()->json($category, 200);
     }
 
     /**
@@ -80,7 +82,18 @@ class productCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = productCategory::where('id', $id)->first();
+
+        $this->validate($request,[
+            'name' => "required | unique:product_categories,name, $category->id",
+        ]);
+
+        $category->name    = $request->name;
+        $category->slug    = Str::slug($request->name);
+
+        $category->save();
+ 
+        return response()->json('success', 200);
     }
 
     /**

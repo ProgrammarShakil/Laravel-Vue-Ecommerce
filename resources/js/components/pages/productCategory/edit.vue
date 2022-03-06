@@ -4,15 +4,15 @@
             <div class="col-md-6">
                 <div class="card rounded-1">
                     <div class="card-header d-flex justify-content-between">
-                        <h4>Categories</h4>
+                        <h4>Edit Category</h4>
                         <router-link :to="{name:'product-Category'}" class="btn btn-success">Back</router-link>
                     </div>
                     <div class="card-body">
-                        <form @submit.prevent="createCategory()" class="form">
+                        <form @submit.prevent="UpdateCategory()" class="form">
                             <input :class="{'is-invalid' : categoryForm.errors.has('name')}" v-model="categoryForm.name" type="text" name="name" class="form-control" placeholder="Category Name">
 
                             <has-error :form="categoryForm" field="name"></has-error>
-                            <input :disabled="categoryForm.busy" type="submit" value="Add Category" class="btn btn-primary mt-3">
+                            <input :disabled="categoryForm.busy" type="submit" name="name" value="Update Category" class="btn btn-primary mt-3">
                         </form>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
 
 <script>
     export default {
-        name: 'ProductCreate',
+        name: 'ProductEdit',
 
         data() {
             return {
@@ -34,19 +34,30 @@
         },
 
         mounted() {
-
+            this.getCategories()
         },
 
         methods: {
-            createCategory(){
-                this.categoryForm.post('/api/categories').then((response)=>{
-                Toastr.success('Category Added Successfully');
+            
+            UpdateCategory(){
+                let id = this.$route.params.id;
+                this.categoryForm.put(`/api/categories/${id}`).then((response)=>{
 
-				this.categoryForm.name = null;
+                Toastr.success('Category Updated Successfully');
+
                 })
                 .catch((error)=>{
                     console.log(error);
                 })
+            },
+
+            getCategories(){
+                let id = this.$route.params.id;
+                
+                axios.get(`/api/categories/${id}/edit`).then(response => {
+                    this.categoryForm.name = response.data.name
+                })
+                .catch();
             }
         },
     };

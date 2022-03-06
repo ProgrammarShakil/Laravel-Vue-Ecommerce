@@ -23,7 +23,7 @@
                                     <td>{{ category.name }}</td>
                                     <td>{{ category.slug }}</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href=""><i class="fa fa-edit text-white"></i></a>
+                                        <router-link class="btn btn-info btn-sm" :to="{name: 'edit-product-Category', params:{id:category.id}}"><i class="fa fa-edit text-white"></i></router-link>
                                         <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
