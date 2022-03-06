@@ -5601,6 +5601,15 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/categories').then(function (response) {
         _this.categories = response.data;
       })["catch"](function (error) {});
+    },
+    deleteCategory: function deleteCategory(category) {
+      axios["delete"]("/api/categories/".concat(category.id)).then(function (response) {
+        Toastr.success('Category Deleted Successfully');
+      });
+      var index = this.categories.indexOf(category);
+      this.categories.splice(index, 1)["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -41990,7 +41999,25 @@ var render = function () {
                             [_c("i", { staticClass: "fa fa-edit text-white" })]
                           ),
                           _vm._v(" "),
-                          _vm._m(1, true),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: { href: "" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteCategory(category)
+                                },
+                              },
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-trash",
+                                attrs: { "aria-hidden": "true" },
+                              }),
+                            ]
+                          ),
                         ],
                         1
                       ),
@@ -42022,21 +42049,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Action")]),
       ]),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "btn btn-danger btn-sm", attrs: { href: "" } },
-      [
-        _c("i", {
-          staticClass: "fa fa-trash",
-          attrs: { "aria-hidden": "true" },
-        }),
-      ]
-    )
   },
 ]
 render._withStripped = true

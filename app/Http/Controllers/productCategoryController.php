@@ -104,6 +104,13 @@ class productCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $category = productCategory::where('id', $id)->first();
+
+       if($category){
+        $category->delete();
+        return response()->json('success', 200);
+       }else{
+        return response()->json('Failed', 404);
+       }
     }
 }

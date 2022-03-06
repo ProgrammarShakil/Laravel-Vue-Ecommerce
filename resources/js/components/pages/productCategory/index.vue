@@ -24,7 +24,7 @@
                                     <td>{{ category.slug }}</td>
                                     <td>
                                         <router-link class="btn btn-info btn-sm" :to="{name: 'edit-product-Category', params:{id:category.id}}"><i class="fa fa-edit text-white"></i></router-link>
-                                        <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a @click.prevent="deleteCategory(category)" class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -58,6 +58,20 @@
                 .catch((error)=>{
 
                 });
+            },
+
+            deleteCategory(category){
+                axios.delete(`/api/categories/${category.id}`).then((response)=>{
+
+                Toastr.success('Category Deleted Successfully');
+
+                })
+
+                let index = this.categories.indexOf(category);
+                this.categories.splice(index, 1)
+                .catch((error)=>{
+                    console.log(error);
+                })
             }
         },
     };
